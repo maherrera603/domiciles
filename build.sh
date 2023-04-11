@@ -4,5 +4,6 @@ set -o errexit
 
 pip install -r requirements/requirements.txt
 
-python manage.py collectstatic --no-input
-python manage.py migrate
+python domiciles/manage.py collectstatic --no-input
+python domiciles/manage.py migrate
+python domiciles/manage.py runserver
