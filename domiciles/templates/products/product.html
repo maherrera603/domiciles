@@ -1,0 +1,35 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+    
+
+
+{% block content %}
+
+  <div class="card border-success mb-3 col-md-8 ms-auto me-auto">
+    <div class="card-header row g-2 bg-success p-1">
+      <h2 class="col-md-6 text-white">Agregar producto</h2>  
+      <div class="col-md-6 d-flex justify-content-end">
+        <a href="{% url 'shop_app:panel_shop' %}" class="btn btn-success">Regresar</a>
+      </div>  
+    </div>
+    <div class="card-body text-success">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Registrar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('#id_avatar').classList.add('form-control');
+    document.querySelector('#avatar-clear_id').style.display = 'none';
+    document.querySelector('label[for="avatar-clear_id"]').style.display = 'none';
+  </script>
+    
+{% endblock content %}
+    

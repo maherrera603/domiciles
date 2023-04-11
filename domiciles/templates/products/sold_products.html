@@ -1,0 +1,79 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    
+    <h2 class="text-success">Ventas Realizadas</h2>
+    
+    <div class="col-md-12 row g-2">
+       {% include 'includes/navigationShop.html' %}
+        <div class="col-md-10">
+            {# filters the sold #}
+            <div class="col-md-12">
+		<form method="get">
+		    <div class="input-group mb-3">
+			<input type="date" class="form-control" name="date" placeholder="Buscar Fecha" aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+		    </div>
+		</form>
+	    
+	    </div>
+
+            <table class="table table-bordered border-success">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Precio total</th>
+			<th>Fecha De Venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+			<tr>
+			    <td>{{ product.id }}</td>
+			    <td>{{ product.product.product }}</td>
+			    <td>{{ product.quantity }}</td>
+			    <td>{{ product.product.price }}</td>
+			    <td>{{ product.full_value }}</td>
+			    <td>{{product.updated_at| date:"M d, Y"}}</td>
+			</tr>
+		    {% endfor %}
+                </tbody> 
+            </table>
+	    {# TODO: make pagination #}
+		{% if is_paginated %}
+		    <nav aria-label="Page navigation example">
+			<ul class="pagination">
+			    {% if page_obj.has_previous %}
+			    <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+			    {% endif %}
+
+			    {% for page in pagination.page_range %}
+				<li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+			    {% endfor %}
+
+			    {% if page_obj.has_next %}
+			    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Siguiente</a></li>
+			    {% endif %}
+			</ul>
+		    </nav>   
+		{% endif %}
+        </div>
+
+       
+
+    </div>
+
+
+
+{% endblock content %}
+    
+    

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="col-md-12 row g-2">
+        <h2 class="mt-3 p-0 mb-0 col-md-6 text-success">Tiendas Disponibles</h2>
+        <form class="d-flex ms-auto col-md-6" role="search" method="GET">
+            <input class="form-control me-2" name="search" id="search" type="search" placeholder="Buscar Tienda" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </div>
+    <hr class="mt-1 mb-4">
+
+    {# checking if found shops register #}
+    {% if quantity < 1 %}
+        <div class="alert alert-primary" role="alert">
+            <i class="fa-solid fa-circle-exclamation"></i> No se encontraron tiendas registradas
+        </div>
+    {% endif %}
+        
+    {# get alls the shops founds  #}
+    <div class="row g-4 col-md-12">
+        {% for shop in shops  %}
+            <div class="card ms-1 me-1" style="width: 18rem;">
+                
+                {% if shop.avatar %}
+                    <img src="{{shop.avatar.url}}" class="card-img-top" alt="...">
+                {% else %}
+                    <img src="{% static 'img/not_found.png' %}" class="card-img-top" alt="Imagen no disponible">
+                {% endif %}
+                    
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{shop.shop}}</h5>
+                    <p class="card-text text-justify">{{shop.description}}</p>
+                    <a href="{% url 'users_app:login' %}" class="btn btn-primary">Ir A tienda</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    {# get pagination of the shops #}   
+    {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                {% endif %}
+                
+                {% for page in pagination.page_range  %}
+                    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li> 
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Siguiente</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    {% endif %}
+        
+{% endblock content %}
+    

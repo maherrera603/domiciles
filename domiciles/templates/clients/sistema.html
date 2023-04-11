@@ -1,0 +1,51 @@
+{% extends 'baseSistema.html' %}
+
+{% load static %}
+
+{% block nav %}
+    {% include 'includes/headerClient.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    <div class="col-md-12 row g-2">
+        <h2 class="text-success col-md-6">Tiendas disponibles</h2>
+        <form class="d-flex ms-auto col-md-6" role="search" method="GET">
+            <input class="form-control me-2" name="search" id="search" type="search" placeholder="Buscar Tienda" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </div>
+    <hr class="mt-1">
+
+    <div class="col-md-12 row g-2 mt-2">
+        {% include 'includes/navigation.html' %}
+        <div class="col-md-9 row g-4 ps-1 pe-1 mt-0">
+            
+            {% for shop in shops %}
+                <div class="card mt-0" style="width: 18rem;">
+                    
+                    {% if shop.avatar %}
+                        <img src="{{shop.avatar.url}}" alt="imagen de la tienda">
+                    {% else %}
+                        <img src="{% static 'img/not_found.png' %}" class="card-img-top" alt="imagen no disponible">
+                    {% endif %}
+                        
+                    <div class="card-body">
+                    <h5 class="card-title">{{shop.shop}}</h5>
+                    <p class="card-text">
+                        {% if shop.description %} {{shop.description}} {% endif %}
+                    </p>
+                    <a href="{% url 'clients_app:list_products' shop.id %}" class="btn btn-primary">Ir A Tienda</a>
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+
+        {# TODO: check pagination #}
+    </div>
+
+
+{% endblock content %}
+    
+    

@@ -1,0 +1,27 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerClient.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+
+<h2 class="text-success">Actualizar Datos</h2>
+<hr class="mt-1">
+
+<div class="col-md-12 row g-2">
+    <nav class="nav flex-column col-md-2"> 
+	<a href="{% url 'clients_app:panel-clients' %}" class="nav-link">Regresar</a>	
+    </nav> 
+    <form class="col-md-10" method="post">
+	{% csrf_token %}
+	{{form.as_p}}
+	<button class="btn btn-success" type="submit">Actualizar</button>
+    </form>
+    
+</div>
+
+
+{% endblock content %}

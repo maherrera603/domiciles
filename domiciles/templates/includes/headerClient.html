@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-success pt-3 pb-3 ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'clients_app:panel-clients' %}"><h2 class="text-white ms-5">Domicilios</h2></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{user.get_full_name}}
+                </a>
+                <ul class="dropdown-menu">
+		    <li><a class="dropdown-item" href="{% url 'clients_app:update_client' user.id %}">Actualizar Datos</a></li>
+		    <li><a class="dropdown-item" href="{% url 'clients_app:change_password' %}">Cambiar Contraseña</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'users_app:logout' %}">Cerrar sesion</a></li>
+                </ul>
+              </li>
+        </ul>
+      </div>
+    </div>
+</nav>

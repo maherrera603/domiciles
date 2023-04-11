@@ -1,0 +1,59 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerClient.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    
+    <div class="col-md-12 row g-2">
+        <h2 class="text-success col-md-6">{{shop.shop}}</h2>
+        <form class="d-flex ms-auto col-md-6" role="search" method="GET">
+            <input class="form-control me-2" name="search" id="search" type="search" placeholder="Buscar Producto" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="col-md-12 row g-2 mt-2">
+        <nav class="nav flex-column col-md-2 mt-0">
+            <a href="{% url 'clients_app:panel-clients' %}" class="nav-link ps-0">Regresar</a>
+        </nav>
+        <div class="col-md-10 row g-4 mt-0">
+            
+            {% if quantity < 1 %}
+                <div class="col-md-12 alert alert-info mt-0">No se encontraron productos registrados</div>
+            {% endif %}
+            
+            {% if quantity >= 1 %}
+                {% for product in products %}
+                    <div class="card mt-0 ms-3 me-3 p-0 mt-3" style="width: 14rem; ">
+                        <img src="{{product.avatar.url}}" class="card-img-top" alt="Imagen del producto">
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.product}}</h5>
+                            <p class="card-text mb-0 text-success">
+                                {% if product.description %} {{product.description}} {% endif %}
+                            </p>
+                            <p class="card-text mt-0 mb-0">
+                                <span class="text-success">Precio</span> ${{product.price}}
+                            </p>
+                            <p class="card-text mt-0">
+                                <span class="text-success">Cantidad Disponible</span> {{product.quantity}}
+                            </p>
+                            
+                            <a href="{% url 'products_app:add_cart' product.id shop.id user.id %}" class="btn btn-success">Agregar</a>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+                
+                
+                
+        </div>
+    </div>
+    
+{% endblock  %}
+    

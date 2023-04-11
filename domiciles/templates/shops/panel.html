@@ -1,0 +1,81 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+    
+
+{% block content %}
+    <div class="col-md-12 row g-3">
+        <h2 class="text-success col-md-5">Productos Registrados</h2>
+        <form class="d-flex ms-auto col-md-5" role="search" method="GET">
+            <input class="form-control me-2" name="search" id="search" type="search" placeholder="Buscar Producto" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+	<div class="col-md-1">
+	    <a href="{% url 'products_app:add_product' %}" class="btn btn-outline-success add-product" title="Agregar Producto"><i class="fa-regular fa-plus"></i></a>
+	</div>
+    </div>   
+
+    <div class="col-md-12 row g-2 mt-2">
+        {% include 'includes/navigationShop.html' %}
+        <div class="col-md-10 row g-4 mt-0">
+            
+            {% if quantity < 1 %}
+                <div class="alert alert-info col-md-12 mt-0">No hay productos registrados</div>
+            {% endif %}
+
+            
+            {% if quantity >= 1 %}
+                
+                {% for product in products %}
+                    <div class="card ms-3 me-3 p-0" style="width: 14rem; height:17rem">
+                        <img src="{{product.avatar.url}}" class="card-img-top" alt="Imagen del producto">
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.product}}</h5>
+                            <p class="card-text">
+                                {% if product.description %} {{product.description}} {% endif %}
+                            </p>
+                            <a href="{% url 'products_app:update_product' product.id %}" class="btn btn-primary">Actualizar Producto</a>
+                            </div>
+                    </div>
+                {% endfor %}
+                    
+            {% endif %}
+            
+            
+            {% if is_paginated %}
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in pagination.page_range %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">{{page}}</a>
+                            </li>
+                        {% endfor %}
+
+                       {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+                        </li>
+                       {% endif %}
+                        
+                    </ul>
+                </nav>
+            {% endif %}
+                
+            
+        </div>
+
+    </div>
+
+
+{% endblock content %}
+    

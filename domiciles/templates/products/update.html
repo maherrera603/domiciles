@@ -1,0 +1,61 @@
+{% extends 'baseSistema.html' %}
+
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+
+
+
+{% block content %}
+    
+
+<div class="card border-success mb-3 col-md-6 ms-auto me-auto">
+    <div class="card-header text-white bg-success d-flex" >
+        <h3 class="col-md-10">{{product.product}}</h3>
+        <a href="{% url 'shop_app:panel_shop' %}" class="btn btn-success ms-auto">Volver</a>
+    </div>
+    <div class="card-body text-success">
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        {# Button trigger modal #}
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            eliminar
+        </button>
+        </form>
+    </div>
+</div>
+
+{# Modal #}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Eiminar {{product.product}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            ¿Desea eliminar este producto?, recuerde que al eliminar el producto se eliminara de la base de datos
+        </p>
+        </div>
+        <div class="modal-footer">
+
+          <a href="{% url 'products_app:delete_product' product.id %}" class="btn btn-primary">Save changes</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelector('#id_avatar').classList.add('form-control');
+    document.querySelector('#avatar-clear_id').style.display = 'none';
+    document.querySelector('label[for="avatar-clear_id"]').style.display = 'none';
+</script>
+{% endblock content %}
+    

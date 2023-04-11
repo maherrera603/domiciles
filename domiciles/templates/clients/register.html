@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    <h2 class="text-success">Registro de usuarios</h2>
+    <hr class="mt-0">
+    
+    
+    {% if message %}
+        <div class="alert alert-success">{{message}}</div>
+    {% endif %}
+        
+
+    <form class="row g-2 mt-3" method="post">
+        {% csrf_token %}
+        <div class="mt-3 col-md-6">
+            <label for="">Nombres</label>
+            {{form.name}}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Apellidos</label>
+            {{form.lastname}}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Tipo de documento</label>
+            {{form.type_document}}
+            {{ form.errors.type_document }}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Documento</label>
+            {{form.document}}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Numero de telefono</label>
+            {{form.phone}}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Correo Electronico</label>
+            {{form.email}}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Contraseña</label>
+            {{form.password}}
+            {{ form.errors.password }}
+        </div>
+        <div class="mt-3 col-md-6">
+            <label for="">Confirmar Contraseña</label>
+            {{form.equalPassword}}
+            {{ form.errors.equalPassword }}
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-sm btn-success">Registrarse</button>
+        </div>
+    </form>
+
+{% endblock content %}
+    

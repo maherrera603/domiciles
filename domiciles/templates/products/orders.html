@@ -1,0 +1,71 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerClient.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    
+    <div class="col-md-12">
+        <h1 class="text-success">Productos</h1>
+    </div>
+
+    <div class="col-md-12 row g-3 mt-2">
+        <nav class="nav flex-column col-md-1 mt-0">
+            <a href="{% url 'clients_app:list_orders' %}" class="nav-link ps-0">Regresar</a>
+        </nav>
+        <div class="col-md-8 mt-0 ms-auto me-auto">
+
+            <ul class="list-group">
+                {% for product in products %}
+                    <li class="list-group-item d-flex ps-1 pe-0">
+                        <img class="logo-shop" src="{{product.product.avatar.url}}" alt="imagen del producto">
+                        <div class="col-md-7 ms-2 row g-2">
+                            <h5 class="text-success col-md-12"><b class="text-succes">{{product.product.description}}</b></h5>
+                            <p class="mb-0 col-md-5 mb-0 mt-0"><b class="text-success">Precio: </b> ${{product.product.price|floatformat:0}}</p>
+                            <p class="mb-0 col-md-7 mb-0 mt-0"><b class="text-success">Cantidad disponible:</b> {{product.product.quantity}}</p>
+                            <p class="mb-0 col-md-5 mb-0 mt-0"><b class="text-success">Cantidad Solicitada:</b> {{product.quantity}}</p>
+                            <p class="mb-0 col-md-7 mb-0 mt-0"><b class="text-success">Total a pagar Por el producto:</b> ${{product.full_value|floatformat:0}}</p>
+                        </div>
+                        <div class="col-md-2 ms-auto me-3">
+                            
+                            {% if product.get_status_display == 'Pendiente' %}
+                                <form action="{% url 'products_app:update_order' shop.id product.id %}" method="post" class="input-group mb-2 ms-auto">
+                                    {% csrf_token %}
+                                    <input type="number" class="form-control" name="quantity" placeholder="Agregar Cantidad" min="1" value="{{product.quantity}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Agregar</button>
+                                </form>
+                                <a href="{% url 'products_app:delete_order' shop.id product.id %}" class="btn btn-danger w-100">Eliminar</a>
+                            {% endif %}
+                                
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card border-success mb-3 col-md-2 mt-0">
+            <h5 class="card-header text-success ps-1">{{shop.shop}}</h5>
+            <div class="card-body text-success p-1">
+                <h6 class="card-title">Detalle de la compra</h6>
+                <p class="card-text mb-0">Cantidad: {{quantity}}</p>
+                <p class="card-text mb-o">Valor a pagar: ${{price_total|floatformat:0}}</p>
+                
+                {% for statu in status %}
+                    {% if statu.get_status_display == 'Pendiente' %}
+                        <a href="{% url 'products_app:confirm_buy' shop.id user.id %}" class="btn btn-success">Confirmar Compra</a>
+                    {% endif %}
+                {% endfor %}
+                    
+            </div>
+        </div>
+    </div>
+
+    
+        
+{% endblock content %}
+    
+
+
+    

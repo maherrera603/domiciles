@@ -1,0 +1,44 @@
+{% extends 'baseSistema.html' %}
+{% load static %}
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    
+    <div class="col-md-12">
+       <h2 class="text-success">Pedidos</h2>
+    </div>
+
+    <div class="col-md-12 row g-2">
+        {% include 'includes/navigationShop.html' %}
+        <div class="col-md-10">
+            {% if quantity < 1 %}
+                <div class="alert alert-success mt-0">
+                    No se encontraron pedidos
+                </div>
+            {% endif %}
+
+            
+            {% if quantity >= 1 %}
+                <div class="col-md-12 row g-2">
+                    {% for client in clients %}
+                        <a href="{% url 'products_app:order_client' user.id client.client.id %}" class="click col-md-5 ms-auto me-auto border border-success rounded">
+                            <li class="list-group-item d-flex">
+                                <img class="logo-shop mt-1 mb-1 ms-1" src="{% static 'img/avatar.png' %}" alt="">
+                                <h5 class="text-success mt-auto mb-auto ms-auto me-auto">{{client.client.get_full_name}}</h5>
+                            </li>
+                        </a>
+                    {% endfor %}   
+                </div>
+            {% endif %}
+                
+        </div>
+            
+    </div>
+
+{% endblock content %}
+    
+    

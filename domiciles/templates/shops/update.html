@@ -1,0 +1,38 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    <h1 class="text-success">Actualizacion de datos</h1>
+    <hr class="mt-1">
+    
+    <div class="col-md-12 row g-2">
+	<nav class="nav flex-column col-md-2">
+	    <a class="nav-link">Regresar</a>
+	</nav>
+
+	<div class="col-md-10">
+	    <form class="col-md-12 ms-auto me-auto row g-2" method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit" class="col-md-2 btn btn-success">Actualizar</button>
+	    </form>
+	</div>
+    
+    </div>
+
+    <script>
+	let p = document.querySelectorAll('form p')
+	document.querySelector('#id_avatar').classList.add('form-control')
+	document.querySelector('#avatar-clear_id').style.display = 'none'
+	document.querySelector('label[for="avatar-clear_id"]').style.display = 'none'
+
+	p.forEach(p => p.classList.add('mt-3', 'col-md-6'))
+    </script>
+{% endblock content %}
+    
+    

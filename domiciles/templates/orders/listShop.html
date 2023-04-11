@@ -1,0 +1,57 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerPanel.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+    <div class="col-md-12">
+        <h3 class="text-success">Orden</h3>
+    </div>    
+
+    <div class="col-md-12 row g-3">
+        <nav class="nav flex-column col-md-1 mt-0">
+            <a href="{% url 'shop_app:cart_shop' %}" class="nav-link ps-0">Regresar</a>
+        </nav>
+        <div class="col-md-7 ms-auto me-auto">
+            <ul class="list-group">
+                
+                {% for product in products %}
+                    <li class="list-group-item d-flex">
+                        
+                        {% if product.product.avatar %}
+                            <img class="col-md-2 logo-shop" src="{{product.product.avatar.url}}" alt="imagen del producto">
+                            <div class="col-md-10 ms-2 row g-2">
+                                <h5 class="text-success col-md-11">{{product.product.description}}</h5>
+                                <p class="mt-0 mb-0 col-md-5"><b class="text-success">Cantidad del producto:</b> {{product.product.quantity}}</p>
+                                <p class="mt-0 mb-0 col-md-6"><b class="text-success">Precio del producto:</b> ${{product.product.price | floatformat:0}}</p>
+                                <p class="mt-0 mb-0 col-md-5"><b class="text-success">Cantidad Solicitada</b> {{product.quantity}}</p>
+                                <p class="mt-0 mb-0 col-md-6"><b class="text-success">Precio:</b> $ {{product.full_value}}</p>
+                            </div>
+                        {% endif %}
+                        
+                    </li>
+                {% endfor %}
+                    
+            </ul>
+        </div>
+        <div class="card border-success mb-4 col-md-4" style="max-height: 13rem;">
+            <div class="card-header text-success">Datos de la orden</div>
+            <div class="card-body text-success pb-0">
+              <p class="card-text mb-0"> <b>Nombres:</b> {{client.get_full_name}}</p>
+              <p class="card-text mb-0"> <b>Telefono:</b> {{client.phone}}</p>
+              <p class="card-text mb-0"> <b>Direccion:</b> {% if client.address %} {{client.address}} {% endif %} </p>
+            </div>
+            <div class="card-header text-success pt-0 pb-0 mt-0"></div>
+            <div class="card-body text-success pb-2 pt-1 d-flex">
+                <p class="card-text col-md-6 mb-auto mt-auto"><b>Total a pagar:</b> ${{full_value | floatformat:0}}</p>
+                <a href="{% url 'products_app:save_order' user.id client.id %}" class="btn btn-primary mb-auto ms-auto mt-auto">Guardar venta</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+    
+    

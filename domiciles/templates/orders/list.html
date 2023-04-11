@@ -1,0 +1,60 @@
+{% extends 'baseSistema.html' %}
+
+
+{% block nav %}
+    {% include 'includes/headerClient.html' %}
+{% endblock nav %}
+
+
+{% block content %}
+
+    <div class="col-md-12 d-flex">
+        <h2 class="text-success">Carrito</h2>
+        <form class="d-flex ms-auto col-md-6" role="search" method="GET">
+            <input class="form-control me-2" name="search" id="search" type="search" placeholder="Buscar Tienda" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="col-md-12 row g-2 mt-2">
+        {% include 'includes/navigation.html' %}
+        <div class="col-md-10 mt-0">
+            
+            {% if quantity < 1 %}
+                <div class="col-md-12 alert alert-info">No se encontraron productos agregados al carrito</div>
+            {% endif %}
+            
+            
+            {% if quantity >= 1 %}
+                
+                <ul class="list-group">
+                    {% for order in orders %}
+                        <li class="list-group-item col-md-12 d-flex pt-0">
+                            
+                            {% if order.shop.avatar %}
+                                <img class="col-md-3 logo-shop mt-2" src="{{order.shop.avatar.url}}" alt="logo de la tienda">
+                            {% endif %}
+                                
+                            <div class="col-md-8 mt-0 mt-2 ms-2">
+                                <h3 class="text-success">{{order.shop.shop}}</h3>
+                                <p class="mb-0 text-justify">{{order.shop.description}}</p>
+                            </div>
+                            <div class="col-md-2 pt-1 mt-2 ms-2">
+                                <b class="text-success mt-2">Estado: </b> {{order.get_status_display}}
+                                <a href="{% url 'clients_app:products_by_order' order.shop.id %}" class="btn btn-success col-md-12 mt-3">Productos</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                    
+            {% endif %}
+                
+
+        </div>
+    </div>
+
+
+    
+{% endblock content %}
+    
+    
