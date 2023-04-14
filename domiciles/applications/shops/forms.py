@@ -17,6 +17,10 @@ class ShopRegisterForm(ModelForm):
     class Meta:
         model = Shop
         fields = ('shop', 'nit', 'phone')
+        labels = {
+            'shop': 'Nombre de la tienda',
+            'phone': 'Telefono'
+        }
 
     def clean_password(self):
         password = self.cleaned_data['password']

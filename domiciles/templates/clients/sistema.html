@@ -22,12 +22,12 @@
         <div class="col-md-9 row g-4 ps-1 pe-1 mt-0">
             
             {% for shop in shops %}
-                <div class="card mt-0" style="width: 18rem;">
+                <div class="card mt-0 ps-0 pe-0" style="width: 18rem;">
                     
                     {% if shop.avatar %}
                         <img src="{{shop.avatar.url}}" alt="imagen de la tienda">
                     {% else %}
-                        <img src="{% static 'img/not_found.png' %}" class="card-img-top" alt="imagen no disponible">
+                        <img src="{% static 'img/not-found.jpg' %}" class="card-img-top" alt="imagen no disponible">
                     {% endif %}
                         
                     <div class="card-body">

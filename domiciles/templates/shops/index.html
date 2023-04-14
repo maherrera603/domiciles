@@ -23,17 +23,18 @@
     <div class="row g-4 col-md-12">
         {% for shop in shops  %}
             <div class="card ms-1 me-1" style="width: 18rem;">
-                
                 {% if shop.avatar %}
                     <img src="{{shop.avatar.url}}" class="card-img-top" alt="...">
                 {% else %}
-                    <img src="{% static 'img/not_found.png' %}" class="card-img-top" alt="Imagen no disponible">
+                    <img src="{% static 'img/shop.jpg' %}" class="card-img-top" alt="Imagen no disponible">
                 {% endif %}
                     
                 
                 <div class="card-body">
                     <h5 class="card-title">{{shop.shop}}</h5>
-                    <p class="card-text text-justify">{{shop.description}}</p>
+                    {% if shop.description %}
+                        <p class="card-text text-justify">{{shop.description}}</p>
+                    {% endif %}   
                     <a href="{% url 'users_app:login' %}" class="btn btn-primary">Ir A tienda</a>
                 </div>
             </div>

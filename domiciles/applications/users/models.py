@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-
-# manager the user
+#
 from .managers import UserManager
 from .managers import RoleManager
 
@@ -22,7 +21,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
-    # field required for valiation the user
     USERNAME_FIELD = 'email'
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

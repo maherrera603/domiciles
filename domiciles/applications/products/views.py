@@ -4,10 +4,10 @@ from django.views.generic.edit import FormView
 from django.views.generic import UpdateView
 from django.views.generic import ListView
 from django.views.generic import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView
 #
 from applications.shops.models import Shop
 from applications.clients.models import Client
@@ -20,20 +20,20 @@ from applications.users.mixins import ShopPermisoMixin
 
 # Create your views here.
 class AddProduct(ShopPermisoMixin, FormView):
-    _shop: Shop
     template_name = "products/product.html"
     form_class = ProductForm
     success_url = reverse_lazy('products_app:add_product')
     login_url = reverse_lazy('users_app:logout')
 
     def get_context_data(self, **kwargs):
-        self._shop = Shop.objects.get_user(self.request.user)
+        shop = Shop.objects.get_user(self.request.user)
         context = super().get_context_data(**kwargs)
-        context['user'] = self._shop
+        context['user'] = shop
         return context
 
     def form_valid(self, form):
-        Product.objects.saveProduct(self._shop, form)
+        shop = Shop.objects.get_user(self.request.user)
+        Product.objects.saveProduct(shop, form)
         return super(AddProduct, self).form_valid(form)
 
 
@@ -116,7 +116,7 @@ class DeleteOrder(ClientPermisoMixin, View):
         return HttpResponseRedirect(reverse('clients_app:products_by_order', args=[shop]))
 
 
-class ProductsByClient(ClientPermisoMixin, ListView):
+class ProductsByClient(ShopPermisoMixin, ListView):
     _user: Shop
     _products: Order
     _client: Client
@@ -184,3 +184,7 @@ class SoldProducts(ShopPermisoMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['user'] = self._shop
         return context
+
+
+class NotFoundView(TemplateView):
+    template_name = 'not_found.html'

@@ -29,7 +29,7 @@
                             <p class="mb-0 col-md-5 mb-0 mt-0"><b class="text-success">Cantidad Solicitada:</b> {{product.quantity}}</p>
                             <p class="mb-0 col-md-7 mb-0 mt-0"><b class="text-success">Total a pagar Por el producto:</b> ${{product.full_value|floatformat:0}}</p>
                         </div>
-                        <div class="col-md-2 ms-auto me-3">
+                        <div class="col-md-3 ms-auto me-3">
                             
                             {% if product.get_status_display == 'Pendiente' %}
                                 <form action="{% url 'products_app:update_order' shop.id product.id %}" method="post" class="input-group mb-2 ms-auto">

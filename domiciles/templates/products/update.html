@@ -18,13 +18,13 @@
     </div>
     <div class="card-body text-success">
         <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" class="btn btn-success">Actualizar</button>
-        {# Button trigger modal #}
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            eliminar
-        </button>
+          {% csrf_token %}
+          {{form.as_p}}
+          <button type="submit" class="btn btn-success">Actualizar</button>
+          {# Button trigger modal #}
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              eliminar
+          </button>
         </form>
     </div>
 </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="modal-footer">
 
-          <a href="{% url 'products_app:delete_product' product.id %}" class="btn btn-primary">Save changes</a>
+          <a href="{% url 'products_app:delete_product' product.id %}" class="btn btn-danger">Eliminar</a>
         </div>
       </div>
     </div>
@@ -53,9 +53,10 @@
 
 
 <script>
-    document.querySelector('#id_avatar').classList.add('form-control');
-    document.querySelector('#avatar-clear_id').style.display = 'none';
-    document.querySelector('label[for="avatar-clear_id"]').style.display = 'none';
+  document.querySelector('#id_avatar').classList.add('form-control');
+  //document.querySelector('#avatar-clear_id').style.display = 'none';
+  //document.querySelector('label[for="avatar-clear_id"]').style.display = 'none';
+  //document.querySelector('label[for="id_avatar"]').style.display = 'none';
 </script>
 {% endblock content %}
     

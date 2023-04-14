@@ -34,6 +34,7 @@ class Order(models.Model):
     quantity = models.IntegerField(default=1)
     full_value = models.FloatField(default=0)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=1)
+    date_add = models.DateField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = OrderManager()

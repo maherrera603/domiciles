@@ -18,6 +18,9 @@ from django.urls import path
 from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from applications.products.views import NotFoundView
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,3 +29,5 @@ urlpatterns = [
     path('sistema-cliente/', include('applications.clients.urls')),
     path('', include('applications.products.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = NotFoundView.as_view()

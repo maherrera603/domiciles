@@ -11,6 +11,7 @@
             <h2 class="">Inciar sesion</h2>
         </div>
         <div class="card-body text-success">
+            {{form.non_field_errors}}
             <form method="post" class="">
                 {% csrf_token %}
                 <div class="mt-3">

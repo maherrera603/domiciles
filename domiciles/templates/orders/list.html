@@ -1,5 +1,5 @@
 {% extends 'baseSistema.html' %}
-
+{% load static %}
 
 {% block nav %}
     {% include 'includes/headerClient.html' %}
@@ -33,13 +33,16 @@
                             
                             {% if order.shop.avatar %}
                                 <img class="col-md-3 logo-shop mt-2" src="{{order.shop.avatar.url}}" alt="logo de la tienda">
+                            {% else %}
+                                <img class="col-md-3 logo-shop mt-2" src="{% static 'img/shop.jpg' %}" alt="logo de la tienda">
                             {% endif %}
-                                
+                            
+
                             <div class="col-md-8 mt-0 mt-2 ms-2">
                                 <h3 class="text-success">{{order.shop.shop}}</h3>
                                 <p class="mb-0 text-justify">{{order.shop.description}}</p>
                             </div>
-                            <div class="col-md-2 pt-1 mt-2 ms-2">
+                            <div class="col-md-2 pt-1 mt-2 ms-auto me-auto">
                                 <b class="text-success mt-2">Estado: </b> {{order.get_status_display}}
                                 <a href="{% url 'clients_app:products_by_order' order.shop.id %}" class="btn btn-success col-md-12 mt-3">Productos</a>
                             </div>

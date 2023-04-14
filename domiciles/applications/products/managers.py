@@ -64,5 +64,5 @@ class OrderManager(Manager):
     def get_orders_by_status_and_dateSold(self, shop, dateSold):
         if dateSold:
             dateFormat = datetime.datetime.strptime(dateSold, '%Y-%m-%d').date()
-            return self.filter(shop=shop, status=3, updated_at=dateFormat)
+            return self.filter(shop=shop, status=3, date_add=dateFormat)
         return self.filter(shop=shop, status=3)
